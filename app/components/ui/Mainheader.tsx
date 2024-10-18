@@ -1,7 +1,9 @@
 import { TChildren } from "~/types";
 
 const Mainheader = ({ children }: { children: TChildren }) => {
-  return <div className="text-3xl text-center py-5">{children}</div>;
+  return (
+    <div className="text-4xl text-center py-8 font-medium">{children}</div>
+  );
 };
 
 export default Mainheader;
