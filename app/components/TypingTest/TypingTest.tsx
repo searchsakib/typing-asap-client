@@ -51,7 +51,7 @@ const TypingTest = () => {
       </div>
       <div className="pt-10 text-center mx-auto text-3xl leading-relaxed">
         <input
-          className=""
+          className="bg-gray-700"
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}

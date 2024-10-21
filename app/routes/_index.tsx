@@ -3,7 +3,7 @@ import Homepage from "~/pages/Homepage/Homepage";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
+    { title: "Typing ASAP" },
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
