@@ -1,5 +1,6 @@
 import { KeyboardEvent, useState } from "react";
 import Mainheader from "../ui/Mainheader";
+import ComponentWrapper from "../ui/ComponentWrapper";
 // import { nanoid } from "nanoid";
 
 const TypingTest = () => {
@@ -20,7 +21,7 @@ const TypingTest = () => {
   };
 
   return (
-    <div>
+    <ComponentWrapper>
       <div>
         <Mainheader>Typing Test</Mainheader>
       </div>
@@ -61,7 +62,7 @@ const TypingTest = () => {
       <div className="">
         <p> {inputValue} </p>
       </div>
-    </div>
+    </ComponentWrapper>
   );
 };
 
