@@ -5,20 +5,29 @@ import ComponentWrapper from "../ui/ComponentWrapper";
 
 const TypingTest = () => {
   const paragraph =
-    "Table orange bicycle computer giraffe toaster window socks ceiling banana cloud pencil umbrella sandwich chair ocean telephone cactus jelly carpet spaceship notebook waterfall tree dragon shoes monitor pizza lamp river guitar blanket mountain cup hat airplane dolphin brick mirror grass paper";
+    "table orange bicycle computer giraffe toaster window socks ceiling banana cloud pencil umbrella sandwich chair ocean telephone cactus jelly carpet notebook waterfall tree dragon shoes monitor pizza lamp river guitar blanket mountain cup hat airplane dolphin brick mirror grass paper";
+  const paragraphArray = paragraph.split(" ");
 
   const [inputValue, setInputValue] = useState("");
+  const [typedWords, setTypedWords] = useState<string[]>([]);
 
-  const eachCharacterOfParagraph = paragraph.split("");
-  const eachCharacterOfInputValue = inputValue.split("");
-
-  const handleClick = (e: KeyboardEvent) => {
+  const handleSpaceKey = (e: KeyboardEvent) => {
     e.preventDefault();
+    // const inputElement = e.target as HTMLInputElement;
+
     if (e.code === "Space") {
-      // const inputElement = e.target as HTMLInputElement;
+      const currentWord = inputValue.trim();
+      if (currentWord) {
+        setTypedWords((previousInputValues) => [
+          ...previousInputValues,
+          currentWord,
+        ]);
+      }
+      setInputValue("");
     }
-    console.log(e);
   };
+  console.log(typedWords);
+  console.log(Array.isArray(typedWords));
 
   return (
     <ComponentWrapper>
@@ -29,25 +38,20 @@ const TypingTest = () => {
         className={`pt-5 w-1/2 mx-auto text-3xl leading-relaxed flex justify-center`}
       >
         <p>
-          {eachCharacterOfParagraph.map(
-            (singleCharacterFromParagraph, index) => {
-              let eachCharacterColor = "";
-              if (
-                eachCharacterOfInputValue[index] ===
-                singleCharacterFromParagraph
-              ) {
-                eachCharacterColor = "text-green-300";
-              } else if (eachCharacterOfInputValue[index] !== undefined) {
-                eachCharacterColor = "text-red-300";
-              }
-
-              return (
-                <span key={index} className={`${eachCharacterColor}`}>
-                  {singleCharacterFromParagraph}
-                </span>
-              );
+          {paragraphArray.map((singleWord, index1) => {
+            let eachWordColor = "";
+            if (typedWords[index1] === singleWord) {
+              eachWordColor = "text-green-300";
+            } else if (typedWords[index1] !== undefined) {
+              eachWordColor = "text-red-300";
             }
-          )}
+
+            return (
+              <span key={index1} className={`${eachWordColor}`}>
+                {singleWord + " "}
+              </span>
+            );
+          })}
         </p>
       </div>
       <div className="pt-10 text-center mx-auto text-3xl leading-relaxed">
@@ -56,11 +60,11 @@ const TypingTest = () => {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyUp={handleClick}
+          onKeyUp={handleSpaceKey}
         />
       </div>
       <div className="">
-        <p> {inputValue} </p>
+        <p>{typedWords}</p>
       </div>
     </ComponentWrapper>
   );
