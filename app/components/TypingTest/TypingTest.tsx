@@ -35,7 +35,7 @@ const TypingTest = () => {
         <Mainheader>Typing Test</Mainheader>
       </div>
       <div
-        className={`pt-5 w-1/2 mx-auto text-3xl leading-relaxed flex justify-center`}
+        className={`pt-5 w-3/4 mx-auto text-3xl leading-relaxed flex justify-center`}
       >
         <p>
           {paragraphArray.map((singleWord, index1) => {
