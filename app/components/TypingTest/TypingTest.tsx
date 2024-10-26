@@ -1,9 +1,29 @@
 import { KeyboardEvent, useState } from "react";
 import Mainheader from "../ui/Mainheader";
 import ComponentWrapper from "../ui/ComponentWrapper";
+import { json, useLoaderData } from "@remix-run/react";
 // import { nanoid } from "nanoid";
 
+export const loader = async () => {
+  const response = await fetch(
+    "https://coffee-store-server-ten-ruddy.vercel.app/words"
+  );
+  console.log("This is RESPONSE" + response);
+  if (!response.ok) throw new Error("Failed to fetch data");
+  const wordData = await response.json();
+  console.log("My fetched DATA:" + wordData);
+  return json(wordData);
+};
+
 const TypingTest = () => {
+  const loaderData = useLoaderData<typeof loader>();
+  const wordData = loaderData?.wordData;
+
+  // if (!wordData) {
+  //   return <div>Loading...</div>;
+  // }
+  console.log("THE DATA: " + wordData);
+
   const paragraph =
     "table orange bicycle computer giraffe toaster window socks ceiling banana cloud pencil umbrella sandwich chair ocean telephone cactus jelly carpet notebook waterfall tree dragon shoes monitor pizza lamp river guitar blanket mountain cup hat airplane dolphin brick mirror grass paper";
   const paragraphArray = paragraph.split(" ");
@@ -26,8 +46,6 @@ const TypingTest = () => {
       setInputValue("");
     }
   };
-  console.log(typedWords);
-  console.log(Array.isArray(typedWords));
 
   return (
     <ComponentWrapper>
