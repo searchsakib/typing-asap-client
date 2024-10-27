@@ -62,21 +62,24 @@ const TypingTest = () => {
         <Mainheader>Typing Test</Mainheader>
       </div>
       <div className="pt-5 w-3/4 mx-auto text-3xl leading-relaxed flex justify-center">
-        <div className="max-h-10 overflow-y-auto">
+        <div className="max-h-12 overflow-y-auto">
           <p className="px-5">
             {words!.map((word, index) => {
               let eachWordColor = "";
+              let wordHighlight = "";
               if (typedWords[index] === word?.word) {
-                eachWordColor = "text-green-300"; // Correct word color
+                eachWordColor = "text-green-300";
+                wordHighlight = "border bg-slate-600";
               } else if (typedWords[index] !== undefined) {
-                eachWordColor = "text-red-300"; // Incorrect word color
+                eachWordColor = "text-red-300";
               }
 
               return (
-                <span key={word?._id} className={`${eachWordColor}`}>
-                  <span className="whitespace-pre-line">
-                    {word?.word + " "}
-                  </span>
+                <span
+                  key={word?._id}
+                  className={`${eachWordColor} ${wordHighlight} tracking-wider [word-spacing:7px]`}
+                >
+                  <span>{word?.word + " "}</span>
                 </span>
               );
             })}
@@ -90,6 +93,7 @@ const TypingTest = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyUp={handleSpaceKey}
+          autoFocus
         />
       </div>
       <div>
