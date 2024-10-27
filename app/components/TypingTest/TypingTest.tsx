@@ -1,13 +1,14 @@
 import { KeyboardEvent, useEffect, useState } from "react";
 import Mainheader from "../ui/Mainheader";
 import ComponentWrapper from "../ui/ComponentWrapper";
+import { TWords } from "~/types/words.type";
 
 const TypingTest = () => {
   // Fetch the data from the loader using useLoaderData
 
   const [inputValue, setInputValue] = useState("");
   const [typedWords, setTypedWords] = useState<string[]>([]);
-  const [words, setWords] = useState([]);
+  const [words, setWords] = useState<TWords>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,7 +16,9 @@ const TypingTest = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched data:", data); // Check if data is fetched correctly
-        setWords(data);
+        const shuffledWords = data?.sort(() => Math.random() - 0.5);
+        const limitedWords = shuffledWords.slice(0, 300);
+        setWords(limitedWords);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -23,18 +26,6 @@ const TypingTest = () => {
         setIsLoading(false);
       });
   }, []);
-
-  if (!isLoading) {
-    return (
-      <ComponentWrapper>
-        <Mainheader>
-          <div className="flex items-center justify-center m-14 lg:m-[150px]">
-            <span className="loading loading-spinner loading-lg text-[#05386B]"></span>
-          </div>
-        </Mainheader>
-      </ComponentWrapper>
-    );
-  }
 
   const handleSpaceKey = (e: KeyboardEvent) => {
     e.preventDefault();
@@ -50,28 +41,42 @@ const TypingTest = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center m-14 lg:m-[150px]">
+        <div className="w-16 h-16 border-8 border-t-[#4b7bae] border-[#90bae4]/4 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  console.log("rendering");
+
   return (
     <ComponentWrapper>
       <div>
         <Mainheader>Typing Test</Mainheader>
       </div>
       <div className="pt-5 w-3/4 mx-auto text-3xl leading-relaxed flex justify-center">
-        <p>
-          {words.map((singleWord, index) => {
-            let eachWordColor = "";
-            if (typedWords[index] === singleWord) {
-              eachWordColor = "text-green-300"; // Correct word color
-            } else if (typedWords[index] !== undefined) {
-              eachWordColor = "text-red-300"; // Incorrect word color
-            }
+        <div className="max-h-60 overflow-y-auto">
+          <p>
+            {words!.map((word, index) => {
+              let eachWordColor = "";
+              if (typedWords[index] === word?.word) {
+                eachWordColor = "text-green-300"; // Correct word color
+              } else if (typedWords[index] !== undefined) {
+                eachWordColor = "text-red-300"; // Incorrect word color
+              }
 
-            return (
-              <span key={index} className={`${eachWordColor}`}>
-                {singleWord + " "}
-              </span>
-            );
-          })}
-        </p>
+              return (
+                <span key={word?._id} className={`${eachWordColor}`}>
+                  <span className="max-h-20 overflow-hidden whitespace-pre-line">
+                    {word?.word + " "}
+                  </span>
+                </span>
+              );
+            })}
+          </p>
+        </div>
       </div>
       <div className="pt-10 text-center mx-auto text-3xl leading-relaxed">
         <input
