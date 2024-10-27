@@ -62,8 +62,8 @@ const TypingTest = () => {
         <Mainheader>Typing Test</Mainheader>
       </div>
       <div className="pt-5 w-3/4 mx-auto text-3xl leading-relaxed flex justify-center">
-        <div className="max-h-60 overflow-y-auto">
-          <p>
+        <div className="max-h-10 overflow-y-auto">
+          <p className="px-5">
             {words!.map((word, index) => {
               let eachWordColor = "";
               if (typedWords[index] === word?.word) {
@@ -74,7 +74,7 @@ const TypingTest = () => {
 
               return (
                 <span key={word?._id} className={`${eachWordColor}`}>
-                  <span className="max-h-20 overflow-hidden whitespace-pre-line">
+                  <span className="whitespace-pre-line">
                     {word?.word + " "}
                   </span>
                 </span>
