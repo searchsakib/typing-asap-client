@@ -88,9 +88,10 @@ const TypingTest = () => {
       </div>
       <div className="pt-10 text-center mx-auto text-3xl leading-relaxed">
         <input
-          className="bg-gray-700"
+          className="bg-gray-700 px-3"
           type="text"
           value={inputValue}
+          placeholder="Start typing..."
           onChange={(e) => setInputValue(e.target.value)}
           onKeyUp={handleSpaceKey}
           autoFocus
