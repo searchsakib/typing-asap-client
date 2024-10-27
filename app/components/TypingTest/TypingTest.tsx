@@ -94,6 +94,7 @@ const TypingTest = () => {
           placeholder="Start typing..."
           onChange={(e) => setInputValue(e.target.value)}
           onKeyUp={handleSpaceKey}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
         />
       </div>
