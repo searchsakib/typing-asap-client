@@ -12,19 +12,24 @@ const TypingTest = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://coffee-store-server-ten-ruddy.vercel.app/words")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched data:", data); // Check if data is fetched correctly
-        const shuffledWords = data?.sort(() => Math.random() - 0.5);
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          "https://coffee-store-server-ten-ruddy.vercel.app/words"
+        );
+        const data = await res.json();
+        console.log("Fetched data: ", data);
+        const fetchedData = data;
+        const shuffledWords = fetchedData?.sort(() => Math.random() - 0.5);
         const limitedWords = shuffledWords.slice(0, 300);
         setWords(limitedWords);
         setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+      } catch (err) {
+        console.error("Error fetching data: ", err);
         setIsLoading(false);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   const handleSpaceKey = (e: KeyboardEvent) => {
