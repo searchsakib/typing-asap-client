@@ -19,10 +19,10 @@ const TypingTest = () => {
         );
         const data = await res.json();
         console.log("Fetched data: ", data);
-        const fetchedData = data;
+        const fetchedData = [...data];
         const shuffledWords = fetchedData?.sort(() => Math.random() - 0.5);
         const limitedWords = shuffledWords.slice(0, 300);
-        setWords(limitedWords);
+        setWords(limitedWords as TWords);
         setIsLoading(false);
       } catch (err) {
         console.error("Error fetching data: ", err);
@@ -42,6 +42,7 @@ const TypingTest = () => {
           currentWord,
         ]);
       }
+
       setInputValue("");
     }
   };
@@ -97,6 +98,7 @@ const TypingTest = () => {
       </div>
       <div>
         <p>{typedWords.join(" ")}</p>
+        <p>{typedWords.join(" ").length}</p>
       </div>
     </ComponentWrapper>
   );
