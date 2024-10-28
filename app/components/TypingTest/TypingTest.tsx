@@ -66,10 +66,8 @@ const TypingTest = () => {
           <p className="px-5">
             {words!.map((word, index) => {
               let eachWordColor = "";
-              let wordHighlight = "";
               if (typedWords[index] === word?.word) {
                 eachWordColor = "text-green-300";
-                wordHighlight = "border bg-slate-600";
               } else if (typedWords[index] !== undefined) {
                 eachWordColor = "text-red-300";
               }
@@ -77,7 +75,7 @@ const TypingTest = () => {
               return (
                 <span
                   key={word?._id}
-                  className={`${eachWordColor} ${wordHighlight} tracking-wider [word-spacing:7px]`}
+                  className={`${eachWordColor} tracking-wider [word-spacing:7px]`}
                 >
                   <span>{word?.word + " "}</span>
                 </span>
@@ -91,7 +89,6 @@ const TypingTest = () => {
           className="bg-gray-700 px-3"
           type="text"
           value={inputValue}
-          placeholder="Start typing..."
           onChange={(e) => setInputValue(e.target.value)}
           onKeyUp={handleSpaceKey}
           // eslint-disable-next-line jsx-a11y/no-autofocus
