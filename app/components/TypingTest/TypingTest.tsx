@@ -63,7 +63,7 @@ const TypingTest = () => {
         <Mainheader>Typing Test</Mainheader>
       </div>
       <div className="pt-5 w-3/4 mx-auto text-3xl leading-relaxed flex justify-center">
-        <div className="max-h-12 overflow-y-auto">
+        <div className="max-h-36 overflow-y-auto">
           <p className="px-5">
             {words!.map((word, index) => {
               let eachWordColor = "";
